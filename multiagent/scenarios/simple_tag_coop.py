@@ -61,7 +61,7 @@ class Scenario(BaseScenario):
                     dist = np.sqrt(np.sum(np.square(delta_pos)))
                     dist_min = _agent.size + agent.size
                     scores[dist < dist_min] = -9999999
-                    if i == n_iter - 1:
+                    if i == n_iter - 1 and _agent.movable:
                         scores += dist
 
         # move to best position
