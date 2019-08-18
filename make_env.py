@@ -29,16 +29,25 @@ def make_env(scenario_name, benchmark=False):
         .action_space       :   Returns the action space for each agent
         .n                  :   Returns the number of Agents
     '''
+    env = None
     from multiagent.environment import MultiAgentEnv
-    import multiagent.scenarios as scenarios
-
-    # load scenario from script
-    scenario = scenarios.load(scenario_name + ".py").Scenario()
-    # create world
-    world = scenario.make_world()
-    # create multiagent environment
-    if benchmark:        
-        env = MultiAgentEnv(world, scenario.reset_world, scenario.reward, scenario.observation, scenario.benchmark_data)
+    if scenario_name in ["half_cheetah_multi"]:
+        if scenario_name == "half_cheetah_multi":
+            from multiagent.envs import MultiAgentHalfCheetah
+            env = MultiAgentHalfCheetah()
     else:
-        env = MultiAgentEnv(world, scenario.reset_world, scenario.reward, scenario.observation)
+        import multiagent.scenarios as scenarios
+
+        # load scenario from script
+        scenario = scenarios.load(scenario_name + ".py").Scenario()
+
+        # branch off! if scenario in mujoco then use custom env!
+
+        # create world
+        world = scenario.make_world()
+        # create multiagent environment
+        if benchmark:
+            env = MultiAgentEnv(world, scenario.reset_world, scenario.reward, scenario.observation, scenario.benchmark_data)
+        else:
+            env = MultiAgentEnv(world, scenario.reset_world, scenario.reward, scenario.observation)
     return env
