@@ -51,7 +51,7 @@ class MultiAgentHalfCheetah(MultiAgentEnv):
                                                     kagents=False,) for agent_id in range(self.n_agents)]
 
         # load scenario from script
-        self.episode_limit = self.args.episode_limit
+        self.episode_limit = arglist.max_episode_len
 
         self.env_version = getattr(arglist, "env_version", 2)
         if self.env_version == 2:
