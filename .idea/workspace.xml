@@ -15,8 +15,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/multiagent/environment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="28" lean-forward="true" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+            <state relative-caret-position="142">
+              <caret line="46" column="124" lean-forward="true" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="124" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -27,32 +27,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/multiagent/envs/half_cheetah_multi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="129" column="100" selection-start-line="129" selection-start-column="100" selection-end-line="129" selection-end-column="100" />
+            <state relative-caret-position="367">
+              <caret line="71" column="65" selection-start-line="71" selection-start-column="65" selection-end-line="71" selection-end-column="65" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/multiagent/scenarios/simple.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-109">
-              <caret line="9" column="47" lean-forward="true" selection-start-line="9" selection-start-column="47" selection-end-line="9" selection-end-column="47" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/make_env.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
             </state>
           </provider>
         </entry>
@@ -85,7 +64,10 @@
       <find>action_callback</find>
       <find>_set_action</find>
       <find>discrete_action_space</find>
+      <find>observat</find>
+      <find>observation_space</find>
       <find>get_obs_size</find>
+      <find>action_space</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -190,12 +172,12 @@
       <workItem from="1563154371894" duration="1882000" />
       <workItem from="1564000205794" duration="2406000" />
       <workItem from="1565851727159" duration="2029000" />
-      <workItem from="1566031211388" duration="5773000" />
+      <workItem from="1566031211388" duration="6841000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19549000" />
+    <option name="totallyTimeSpent" value="20617000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="735" extended-state="0" />
@@ -339,8 +321,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/multiagent/environment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="28" lean-forward="true" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+        <state relative-caret-position="142">
+          <caret line="46" column="124" lean-forward="true" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="124" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -349,8 +331,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/multiagent/envs/half_cheetah_multi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="129" column="100" selection-start-line="129" selection-start-column="100" selection-end-line="129" selection-end-column="100" />
+        <state relative-caret-position="367">
+          <caret line="71" column="65" selection-start-line="71" selection-start-column="65" selection-end-line="71" selection-end-column="65" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

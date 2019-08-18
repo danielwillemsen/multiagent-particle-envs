@@ -64,6 +64,19 @@ class MultiAgentHalfCheetah(MultiAgentEnv):
         self.env = self.timelimit_env.env
         self.timelimit_env.reset()
         self.obs_size = self.get_obs_size()
+
+        # compatibility with maddpg
+        self.n = self.n_agents
+        self.action_space = []
+        self.observation_space = []
+        print("ENV ACTION SPACE: {}".format(self.env.action_space))
+        for i in range(self.n):
+            self.observation_space.append(spaces.Box(low=-np.inf,
+                                                     high=+np.inf,
+                                                     shape=(self.obs_size,),
+                                                     dtype=np.float32))
+            self.action_space.append(spaces.Box(low=-1.0, high=+1.0, shape=(1,), dtype=np.float32))
+
         pass
 
     def step(self, action_n):
