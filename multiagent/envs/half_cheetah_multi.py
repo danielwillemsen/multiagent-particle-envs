@@ -23,10 +23,10 @@ class NormalizedActions(gym.ActionWrapper):
 
 class MultiAgentHalfCheetah(MultiAgentEnv):
 
-    def __init__(self):
-        super().__init__(batch_size, **kwargs)
+    def __init__(self, arglist):
+        super().__init__(batch_size=1)
 
-        self.agent_conf = kwargs["env_args"].get("agent_conf", "3x3")
+        self.agent_conf = getattr(arglist, "agent_conf", "3x3")
 
         self.agent_partitions, self.mujoco_edges  = obsk.get_parts_and_edges("half_cheetah",
                                                                              self.agent_conf)
@@ -34,8 +34,14 @@ class MultiAgentHalfCheetah(MultiAgentEnv):
         self.n_agents = len(self.agent_partitions)
         self.n_actions = max([len(l) for l in self.agent_partitions])
 
-        self.agent_obsk = kwargs["env_args"].get("agent_obsk", None) # if None, fully observable else k>=0 implies observe nearest k agents or joints
-        self.agent_obsk_agents = kwargs["env_args"].get("agent_obsk_agents", False)  # observe full k nearest agents (True) or just single joints (False)
+        self.agent_obsk = getattr(arglist,
+                                  "agent_obsk",
+                                  None)
+        # if None, fully observable else k>=0 implies observe nearest k agents or joints
+        self.agent_obsk_agents = getattr(arglist,
+                                         "agent_obsk_agents",
+                                         False)
+        # observe full k nearest agents (True) or just single joints (False)
 
         if self.agent_obsk is not None:
             self.k_dicts = [obsk.get_joints_at_kdist(agent_id,
@@ -47,7 +53,7 @@ class MultiAgentHalfCheetah(MultiAgentEnv):
         # load scenario from script
         self.episode_limit = self.args.episode_limit
 
-        self.env_version = kwargs["env_args"].get("env_version", 2)
+        self.env_version = getattr(arglist, "env_version", 2)
         if self.env_version == 2:
             self.wrapped_env = NormalizedActions(gym.make('HalfCheetah-v2'))
         else:
