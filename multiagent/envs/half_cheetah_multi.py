@@ -24,7 +24,7 @@ class NormalizedActions(gym.ActionWrapper):
 class MultiAgentHalfCheetah(MultiAgentEnv):
 
     def __init__(self, arglist):
-        super().__init__()
+        #super().__init__()
 
         self.agent_conf = getattr(arglist, "agent_conf", "3x3")
 
