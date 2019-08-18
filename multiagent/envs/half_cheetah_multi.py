@@ -118,6 +118,17 @@ class MultiAgentHalfCheetah(MultiAgentEnv):
                                   self.env.sim.data.qvel,
                                   vec_len=self.obs_size)
 
+
+    def get_obs_size(self):
+        """ Returns the shape of the observation """
+        if self.agent_obsk is None:
+            return self.get_obs_agent(0).size
+        else:
+            return max([obsk.build_obs(self.k_dicts[agent_id],
+                                       self.env.sim.data.qpos,
+                                       self.env.sim.data.qvel,
+                                       vec_len=None).shape[0] for agent_id in range(self.n_agents)])
+
     def _get_done(self, agent):
         pass
 
