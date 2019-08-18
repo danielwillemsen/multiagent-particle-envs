@@ -31,6 +31,7 @@ def make_env(scenario_name, benchmark=False):
     '''
     env = None
     from multiagent.environment import MultiAgentEnv
+    print("HELLO FROM CUSTOMIZED MULTIAGENT ENV!")
     if scenario_name in ["half_cheetah_multi"]:
         if scenario_name == "half_cheetah_multi":
             from multiagent.envs import MultiAgentHalfCheetah

@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d487e14-e4c5-477e-8f06-495362b09a03" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/multiagent/envs/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/multiagent/envs/half_cheetah_multi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/multiagent/envs/obsk.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/make_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/make_env.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,11 +24,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/multiagent/envs/half_cheetah_multi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="93" column="34" lean-forward="true" selection-start-line="93" selection-start-column="34" selection-end-line="93" selection-end-column="34" />
+            <state relative-caret-position="131">
+              <caret line="86" column="26" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="26" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -52,11 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/make_env.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="34" column="23" lean-forward="true" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
+            <state relative-caret-position="221">
+              <caret line="33" column="48" selection-start-line="33" selection-start-column="48" selection-end-line="33" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -105,8 +101,8 @@
         <option value="$PROJECT_DIR$/multiagent/scenarios/half_cheetah_multi.py" />
         <option value="$PROJECT_DIR$/multiagent/environment.py" />
         <option value="$PROJECT_DIR$/multiagent/envs/__init__.py" />
-        <option value="$PROJECT_DIR$/make_env.py" />
         <option value="$PROJECT_DIR$/multiagent/envs/half_cheetah_multi.py" />
+        <option value="$PROJECT_DIR$/make_env.py" />
       </list>
     </option>
   </component>
@@ -193,12 +189,12 @@
       <workItem from="1563154371894" duration="1882000" />
       <workItem from="1564000205794" duration="2406000" />
       <workItem from="1565851727159" duration="2029000" />
-      <workItem from="1566031211388" duration="3024000" />
+      <workItem from="1566031211388" duration="3052000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16800000" />
+    <option name="totallyTimeSpent" value="16828000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="735" extended-state="0" />
@@ -323,13 +319,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/make_env.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="34" column="23" lean-forward="true" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/multiagent/scenarios/simple.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-109">
@@ -352,11 +341,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/multiagent/envs/half_cheetah_multi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="93" column="34" lean-forward="true" selection-start-line="93" selection-start-column="34" selection-end-line="93" selection-end-column="34" />
+        <state relative-caret-position="131">
+          <caret line="86" column="26" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="26" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/make_env.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="33" column="48" selection-start-line="33" selection-start-column="48" selection-end-line="33" selection-end-column="48" />
         </state>
       </provider>
     </entry>
