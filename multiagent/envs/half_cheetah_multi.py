@@ -1,5 +1,6 @@
 import numpy as np
 import gym
+from gym import spaces
 from multiagent.environment import MultiAgentEnv
 from multiagent.envs import obsk
 
@@ -26,7 +27,7 @@ class MultiAgentHalfCheetah(MultiAgentEnv):
     def __init__(self, arglist):
         #super().__init__()
 
-        self.agent_conf = getattr(arglist, "agent_conf", "3x3")
+        self.agent_conf = getattr(arglist, "agent_conf", "2x3")
 
         self.agent_partitions, self.mujoco_edges  = obsk.get_parts_and_edges("half_cheetah",
                                                                              self.agent_conf)
@@ -75,8 +76,8 @@ class MultiAgentHalfCheetah(MultiAgentEnv):
                                                      high=+np.inf,
                                                      shape=(self.obs_size,),
                                                      dtype=np.float32))
-            self.action_space.append(spaces.Box(low=-1.0, high=+1.0, shape=(1,), dtype=np.float32))
-
+            if self.agent_conf == "2x3":
+                self.action_space.append(spaces.Box(low=[-1.0]*3, high=[+1.0]*3, shape=(3,), dtype=np.float32))
         pass
 
     def step(self, action_n):
