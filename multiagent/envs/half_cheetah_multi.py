@@ -76,10 +76,14 @@ class MultiAgentHalfCheetah(MultiAgentEnv):
                                                      high=+np.inf,
                                                      shape=(self.obs_size,),
                                                      dtype=np.float32))
-            if self.agent_conf == "2x3":
-                self.action_space.append(spaces.Box(low=[-1.0]*3, high=[+1.0]*3, shape=(3,), dtype=np.float32))
-            else:
-                raise Exception("Not implemented!", self.agent_conf)
+        if self.agent_conf == "2x3":
+            self.action_space = (Box(self.env.action_space.low[:3],
+                                     self.env.action_space.high[:3]),
+                                 Box(self.env.action_space.low[3:],
+                                     self.env.action_space.high[3:])
+                                 )
+        else:
+            raise Exception("Not implemented!", self.agent_conf)
         pass
 
     def step(self, action_n):
