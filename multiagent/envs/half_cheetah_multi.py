@@ -113,7 +113,7 @@ class MultiAgentHalfCheetah(MultiAgentEnv):
             else:
                 info["episode_limit"] = True    # the next state will not be masked out
 
-        return obs_n, reward_n, [done_n]*self.n_agents, info
+        return self._get_obs_all(), [reward_n]*self.n_agents, [done_n]*self.n_agents, info
 
     def reset(self):
         self.steps = 0
