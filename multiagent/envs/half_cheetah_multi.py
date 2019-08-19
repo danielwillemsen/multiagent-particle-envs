@@ -1,6 +1,7 @@
 import numpy as np
 import gym
 from gym import spaces
+from gym.spaces import Box
 from multiagent.environment import MultiAgentEnv
 from multiagent.envs import obsk
 
