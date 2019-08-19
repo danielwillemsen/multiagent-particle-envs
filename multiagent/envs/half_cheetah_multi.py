@@ -127,7 +127,7 @@ class MultiAgentHalfCheetah(MultiAgentEnv):
         """ Returns all agent observations in a list """
         obs_n = []
         for a in range(self.n_agents):
-            obs_n.append(self.get_obs_agent(a))
+            obs_n.append(self._get_obs(a))
         return obs_n
 
     def _get_obs(self, agent_id):
