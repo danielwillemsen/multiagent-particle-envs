@@ -106,7 +106,7 @@ def get_parts_and_edges(label, partitioning):
                  Edge(fthigh, fshin),
                  Edge(fshin, ffoot)]
 
-        if partitioning == "3x3":
+        if partitioning == "2x3":
             parts = [(bfoot, bshin, bthigh),
                      (ffoot, fshin, fthigh)]
         elif partitioning == "6x1":
