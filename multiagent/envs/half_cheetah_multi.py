@@ -89,7 +89,7 @@ class MultiAgentHalfCheetah(MultiAgentEnv):
 
     def step(self, action_n):
 
-        flat_actions = np.concatenate([action_n[i] for i in range(action_n.shape[0])])
+        flat_actions = np.concatenate([action_n[i] for i in range(len(action_n) if isinstance(action_n, list) else action_n.shape[0])])
         obs_n, reward_n, done_n, info_n = self.wrapped_env.step(flat_actions)
         self.steps += 1
 
