@@ -48,13 +48,13 @@ class Scenario(BaseScenario):
         # evaluate score for each position
         # check whether positions are reachable
         # sample a few evenly spaced points on the way and see if they collide with anything
-        scores = np.zeros(n, dtype=np.dtype.float32)
+        scores = np.zeros(n, dtype=np.float32)
         n_iter = 5
         for i in range(n_iter):
             waypoints_length = length / float(n_iter)
             x_wp = waypoints_length * np.cos(angle)
             y_wp = waypoints_length * np.sin(angle)
-            proj_pos = np.vstack((x_wp, y_wp)).transpose() + agent.p_pos
+            proj_pos = np.vstack((x_wp, y_wp)).transpose() + agent.state.p_pos
             for i, _agent in enumerate(world.agents):
                 if _agent.name != agent.name:
                     delta_pos = _agent.state.p_pos - proj_pos
@@ -66,7 +66,7 @@ class Scenario(BaseScenario):
 
         # move to best position
         best_idx = np.argmax(scores)
-        chosen_action = np.array([x[best_idx], y[best_idx]], dtype=np.dtype.float32)
+        chosen_action = np.array([x[best_idx], y[best_idx]], dtype=np.float32)
         if scores[best_idx] < 0:
             chosen_action *= 0.0 # cannot go anywhere
         return chosen_action
