@@ -64,7 +64,7 @@ def get_joints_at_kdist(agent_id, agent_partitions, edges, k=0, kagents=False,):
     return k_dict
 
 
-def build_obs(k_dict, qpos, qvel, vec_len=None):
+def build_obs(k_dict, qpos, qvel, vec_len=None, add_global_pos=False):
     """Given a k_dict from get_joints_at_kdist, extract observation vector.
 
     :param k_dict: k_dict
@@ -76,6 +76,16 @@ def build_obs(k_dict, qpos, qvel, vec_len=None):
     """
     obs_qpos_lst = []
     obs_qvel_lst = []
+    # for k in sorted(list(k_dict.keys())):
+    #     for _t in k_dict[k]:
+    #         obs_qpos_lst.append(qpos[_t.qpos_ids])
+    #         obs_qvel_lst.append(qvel[_t.qvel_ids])
+
+    if add_global_pos:
+        for qpos_ids in [0, 1, 2]:
+            obs_qpos_lst.append(qpos[qpos_ids])
+        for qvel_ids in [0, 1, 2]:
+            obs_qvel_lst.append(qvel[qvel_ids])
     for k in sorted(list(k_dict.keys())):
         for _t in k_dict[k]:
             obs_qpos_lst.append(qpos[_t.qpos_ids])
