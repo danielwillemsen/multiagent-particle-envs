@@ -86,6 +86,20 @@ class MultiAgentHalfCheetah(MultiAgentEnv):
                                  Box(self.env.action_space.low[3:],
                                      self.env.action_space.high[3:])
                                  )
+        elif self.agent_conf == "6x1":
+            self.action_space = (Box(self.env.action_space.low[0:1],
+                                     self.env.action_space.high[0:1]),
+                                 Box(self.env.action_space.low[1:2],
+                                     self.env.action_space.high[1:2]),
+                                 Box(self.env.action_space.low[2:3],
+                                     self.env.action_space.high[2:3]),
+                                 Box(self.env.action_space.low[3:4],
+                                     self.env.action_space.high[3:4]),
+                                 Box(self.env.action_space.low[4:5],
+                                     self.env.action_space.high[4:5]),
+                                 Box(self.env.action_space.low[5:],
+                                     self.env.action_space.high[5:])
+                                 )
         else:
             raise Exception("Not implemented!", self.agent_conf)
         pass
