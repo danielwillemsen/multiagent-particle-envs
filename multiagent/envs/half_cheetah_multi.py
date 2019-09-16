@@ -157,6 +157,9 @@ class MultiAgentHalfCheetah(MultiAgentEnv):
                                   vec_len=self.obs_size,
                                   add_global_pos=self.obs_add_global_pos)
 
+    def get_state(self):
+        """ Returns the global state info """
+        return self.env._get_obs()
 
     def get_obs_size(self):
         """ Returns the shape of the observation """
