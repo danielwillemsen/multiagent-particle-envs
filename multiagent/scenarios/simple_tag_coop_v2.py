@@ -9,7 +9,7 @@ class Scenario(BaseScenario):
         # set any world properties first
         world.dim_c = 2
         num_good_agents = 1
-        num_adversaries = 6
+        num_adversaries = 3
         num_agents = num_adversaries + num_good_agents # deactivate "good" agent
         num_landmarks = 2
         # add agents
@@ -51,14 +51,14 @@ class Scenario(BaseScenario):
         scores = np.zeros(n, dtype=np.float32)
         n_iter = 5
         for i in range(n_iter):
-            waypoints_length = length / float(n_iter)
+            waypoints_length = (length / float(n_iter)) * (i + 1)
             x_wp = waypoints_length * np.cos(angle)
             y_wp = waypoints_length * np.sin(angle)
             proj_pos = np.vstack((x_wp, y_wp)).transpose() + agent.state.p_pos
-            for i, _agent in enumerate(world.agents):
+            for _agent in world.agents:
                 if _agent.name != agent.name:
                     delta_pos = _agent.state.p_pos - proj_pos
-                    dist = np.sqrt(np.sum(np.square(delta_pos)))
+                    dist = np.sqrt(np.sum(np.square(delta_pos), axis=1))
                     dist_min = _agent.size + agent.size
                     scores[dist < dist_min] = -9999999
                     if i == n_iter - 1 and _agent.movable:
