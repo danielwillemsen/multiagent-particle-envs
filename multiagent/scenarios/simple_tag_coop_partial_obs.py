@@ -4,7 +4,7 @@ from multiagent.scenario import BaseScenario
 
 
 class Scenario(BaseScenario):
-    def make_world(self):
+    def make_world(self, args=None):
         world = World()
         # set any world properties first
         world.dim_c = 2
@@ -24,6 +24,8 @@ class Scenario(BaseScenario):
             #agent.accel = 20.0 if agent.adversary else 25.0
             agent.max_speed = 1.0 if agent.adversary else 1.3
             agent.action_callback = None if i < (num_agents-1) else self.prey_policy
+            agent.view_radius = getattr(args, "agent_view_radius", -1)
+            print("AGENT VIEW RADIUS set to: {}".format(agent.view_radius))
         # add landmarks
         world.landmarks = [Landmark() for i in range(num_landmarks)]
         for i, landmark in enumerate(world.landmarks):
@@ -34,6 +36,7 @@ class Scenario(BaseScenario):
             landmark.boundary = False
         # make initial conditions
         self.reset_world(world)
+        self.score_function= getattr(args, "score_function", "sum")
         return world
 
     def prey_policy(self, agent, world):
@@ -50,19 +53,39 @@ class Scenario(BaseScenario):
         # sample a few evenly spaced points on the way and see if they collide with anything
         scores = np.zeros(n, dtype=np.float32)
         n_iter = 5
-        for i in range(n_iter):
-            waypoints_length = (length / float(n_iter)) * (i + 1)
-            x_wp = waypoints_length * np.cos(angle)
-            y_wp = waypoints_length * np.sin(angle)
-            proj_pos = np.vstack((x_wp, y_wp)).transpose() + agent.state.p_pos
-            for _agent in world.agents:
-                if _agent.name != agent.name:
-                    delta_pos = _agent.state.p_pos - proj_pos
-                    dist = np.sqrt(np.sum(np.square(delta_pos), axis=1))
-                    dist_min = _agent.size + agent.size
-                    scores[dist < dist_min] = -9999999
-                    if i == n_iter - 1 and _agent.movable:
-                        scores += dist
+
+        if self.score_function == "sum":
+            for i in range(n_iter):
+                waypoints_length = (length / float(n_iter)) * (i + 1)
+                x_wp = waypoints_length * np.cos(angle)
+                y_wp = waypoints_length * np.sin(angle)
+                proj_pos = np.vstack((x_wp, y_wp)).transpose() + agent.state.p_pos
+                for _agent in world.agents:
+                    if _agent.name != agent.name:
+                        delta_pos = _agent.state.p_pos - proj_pos
+                        dist = np.sqrt(np.sum(np.square(delta_pos), axis=1))
+                        dist_min = _agent.size + agent.size
+                        scores[dist < dist_min] = -9999999
+                        if i == n_iter - 1 and _agent.movable:
+                            scores += dist
+        elif self.score_function == "min":
+            rel_dis = []
+            adv_names = []
+            adversaries = self.adversaries(world)
+            proj_pos = np.vstack((x, y)).transpose() + agent.state.p_pos # the position of the 100 sampled points.
+            for adv in adversaries:
+                rel_dis.append(np.sqrt(np.sum(np.square(agent.state.p_pos - adv.state.p_pos))))
+                adv_names.append(adv.name)
+            min_dis_adv_name = adv_names[np.argmin(rel_dis)]
+            for adv in adversaries:
+                delta_pos = adv.state.p_pos - proj_pos
+                dist = np.sqrt(np.sum(np.square(delta_pos), axis=1))
+                dist_min = adv.size + agent.size
+                scores[dist < dist_min] = -9999999
+                if adv.name == min_dis_adv_name:
+                    scores += dist
+        else:
+            raise Exception("Unknown score function {}".format(self.score_function))
 
         # move to best position
         best_idx = np.argmax(scores)
@@ -164,6 +187,27 @@ class Scenario(BaseScenario):
         return rew
 
     def observation(self, agent, world):
+        # get positions of all entities in this agent's reference frame
+        entity_pos = []
+        for entity in world.landmarks:
+            dist = np.sqrt(np.sum(np.square(entity.state.p_pos - agent.state.p_pos)))
+            if not entity.boundary and (agent.view_radius >= 0) and dist <= agent.view_radius:
+                entity_pos.append(entity.state.p_pos - agent.state.p_pos)
+        # communication of all other agents
+        comm = []
+        other_pos = []
+        other_vel = []
+        for other in world.agents:
+            if other is agent: continue
+            dist = np.sqrt(np.sum(np.square(other.state.p_pos - agent.state.p_pos)))
+            if agent.view_radius >= 0 and dist <= agent.view_radius:
+                comm.append(other.state.c)
+                other_pos.append(other.state.p_pos - agent.state.p_pos)
+                if not other.adversary:
+                    other_vel.append(other.state.p_vel)
+        return np.concatenate([agent.state.p_vel] + [agent.state.p_pos] + entity_pos + other_pos + other_vel)
+
+    def full_observation(self, agent, world):
         # get positions of all entities in this agent's reference frame
         entity_pos = []
         for entity in world.landmarks:

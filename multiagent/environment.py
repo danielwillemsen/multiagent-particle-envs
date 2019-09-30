@@ -12,7 +12,7 @@ class MultiAgentEnv(gym.Env):
     }
 
     def __init__(self, world, reset_callback=None, reward_callback=None,
-                 observation_callback=None, info_callback=None,
+                 observation_callback=None, full_obs_callback=None, info_callback=None,
                  done_callback=None, shared_viewer=True):
 
         self.world = world
@@ -65,7 +65,15 @@ class MultiAgentEnv(gym.Env):
             else:
                 self.action_space.append(total_action_space[0])
             # observation space
-            obs_dim = len(observation_callback(agent, self.world))
+            # obs_dim = len(observation_callback(agent, self.world))
+
+            if full_obs_callback is not None:
+                # NOTE: Need the length of the full observation when the agent has partial obs in predator-prey!
+                obs_dim = len(full_obs_callback(agent, self.world))
+            else:
+                obs_dim = len(observation_callback(agent, self.world))
+            print("OBS DIM: {}".format(obs_dim))
+
             self.observation_space.append(spaces.Box(low=-np.inf, high=+np.inf, shape=(obs_dim,), dtype=np.float32))
             agent.action.c = np.zeros(self.world.dim_c)
 
@@ -125,7 +133,12 @@ class MultiAgentEnv(gym.Env):
     def _get_obs(self, agent):
         if self.observation_callback is None:
             return np.zeros(0)
-        return self.observation_callback(agent, self.world)
+        obs_dim = max([o.shape[0] for o in self.observation_space])
+        obs = self.observation_callback(agent, self.world)
+        if len(obs) < obs_dim:
+            obs = np.concatenate([obs, np.zeros((obs_dim - len(obs)))], axis=0)  # pad all obs to same length
+        # return self.observation_callback(agent, self.world)
+        return obs
 
     # get dones for a particular agent
     # unused right now -- agents are allowed to go beyond the viewing screen

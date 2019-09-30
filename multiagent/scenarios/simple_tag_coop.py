@@ -55,7 +55,7 @@ class Scenario(BaseScenario):
             x_wp = waypoints_length * np.cos(angle)
             y_wp = waypoints_length * np.sin(angle)
             proj_pos = np.vstack((x_wp, y_wp)).transpose() + agent.state.p_pos
-            for i, _agent in enumerate(world.agents):
+            for a, _agent in enumerate(world.agents):
                 if _agent.name != agent.name:
                     delta_pos = _agent.state.p_pos - proj_pos
                     dist = np.sqrt(np.sum(np.square(delta_pos)))
